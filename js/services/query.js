@@ -1,0 +1,39 @@
+export const query = `{
+  user {
+    avatarUrl
+    id
+    login
+    auditRatio
+
+    events(
+      where: {
+        eventId: {
+          _eq: 41
+        }
+      }
+    ) {
+      level
+    }
+  }
+
+  totalXP: transaction_aggregate(
+    where: {
+      type: {
+        _eq: "xp"
+      }
+      event: {
+        object: {
+          name: {
+            _eq: "Module"
+          }
+        }
+      }
+    }
+  ) {
+    aggregate {
+      sum {
+        amount
+      }
+    }
+  }
+}`;
