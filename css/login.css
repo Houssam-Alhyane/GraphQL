@@ -1,0 +1,133 @@
+/* Login — CSS
+   Palette: ink #14171C, panel #1B1F26, line #2B303A, text #E8EAED,
+            muted #8B93A1, accent #5EEAD4
+   Type: 'Space Grotesk' for the heading, 'Inter' for body/inputs
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #14171c;
+  background-image: radial-gradient(
+      circle at 20% 20%,
+      rgba(94, 234, 212, 0.06),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(94, 234, 212, 0.04),
+      transparent 40%
+    );
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 24px;
+}
+
+#loginForm {
+  width: 100%;
+  max-width: 360px;
+  background: #1b1f26;
+  border: 1px solid #2b303a;
+  border-radius: 14px;
+  padding: 40px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+#loginForm p2 {
+  display: block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: #e8eaed;
+  margin-bottom: 4px;
+}
+
+/* the second p2 is the warning notice — style it distinctly, as a caption */
+#loginForm p2:last-of-type {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #8b93a1;
+  background: rgba(94, 234, 212, 0.04);
+  border-left: 2px solid #5eead4;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin: 18px 0 22px;
+}
+
+#loginForm br {
+  display: none; /* spacing handled by margins instead */
+}
+
+#loginForm input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 12px;
+  background: #14171c;
+  border: 1px solid #2b303a;
+  border-radius: 8px;
+  color: #e8eaed;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#loginForm input::placeholder {
+  color: #565d6b;
+}
+
+#loginForm input:focus {
+  border-color: #5eead4;
+  box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.15);
+}
+
+#loginForm input:first-of-type {
+  margin-top: 0;
+}
+
+#loginForm button {
+  margin-top: 22px;
+  padding: 12px 14px;
+  background: #5eead4;
+  color: #14171c;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+
+#loginForm button:hover {
+  background: #7ff2df;
+}
+
+#loginForm button:active {
+  transform: scale(0.98);
+}
+
+#loginForm button:focus-visible,
+#loginForm input:focus-visible {
+  outline: 2px solid #5eead4;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #loginForm button {
+    transition: none;
+  }
+}
