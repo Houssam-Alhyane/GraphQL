@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/profile.css" />
+    <link rel="icon" href="./assest/icon.png" />
+    <title>Profile</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <span class="brand">Zone01</span>
+      <button id="logoutBtn" class="logout-btn">Log out</button>
+    </header>
+
+    <main class="profile-wrap">
+      <section class="card user-card">
+        <img id="avatar" class="avatar" alt="avatar" />
+        <div>
+          <h1 id="userLogin">—</h1>
+          <p class="muted" id="userId">ID: —</p>
+        </div>
+      </section>
+
+      <section class="stats-row">
+        <div class="card stat">
+          <span class="stat-label">Total XP</span>
+          <span class="stat-value" id="xpTotal">—</span>
+        </div>
+        <div class="card stat">
+          <span class="stat-label">Audit Ratio</span>
+          <span class="stat-value" id="auditRatio">—</span>
+        </div>
+        <div class="card stat">
+          <span class="stat-label">Level</span>
+          <span class="stat-value" id="userLevel">—</span>
+        </div>
+      </section>
+
+      <section class="graphs-row">
+        <div class="card graph-card">
+          <h2>XP Progress</h2>
+          <div id="xpGraph" class="graph-container"></div>
+        </div>
+        <div class="card graph-card">
+          <h2>Audits</h2>
+          <div id="auditGraph" class="graph-container"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
