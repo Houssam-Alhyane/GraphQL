@@ -6,6 +6,9 @@ const password = document.getElementById('password');
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-
-  await login(identifier.value, password.value);
+  const result = await login(identifier.value, password.value);
+  if (result?.error) {
+    document.getElementById('errorMsg').textContent = result.error;
+  }
 });
+ 
