@@ -7,7 +7,9 @@ export async function login(identifier, password) {
 
   const response = await fetch(LOGIN_URL, {
     method: 'POST',
-    headers: { Authorization: `Basic ${encoded}` },
+    headers: {
+      Authorization: `Basic ${encoded}`,
+    },
   });
 
   if (!response.ok) {
@@ -15,6 +17,8 @@ export async function login(identifier, password) {
   }
 
   const token = await response.text();
+
   saveToken(token.slice(1, -1));
-  window.location.href = '/profile.html';
+
+  window.location.replace('/profile.html');
 }

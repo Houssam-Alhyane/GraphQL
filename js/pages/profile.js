@@ -5,12 +5,14 @@ import { renderXpGraph } from '../graphs/xpGraph.js';
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
   removeToken();
-  window.location.href = '/index.html';
+  window.location.reload();
+  window.location.replace('/index.html');
 });
 
 const token = getToken();
 if (!token) {
-  window.location.href = '/index.html';
+  window.location.replace('/index.html');
+  
 } else {
   const user = await getUser();
   if (user) {
