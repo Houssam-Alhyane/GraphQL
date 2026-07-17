@@ -7,25 +7,29 @@ export const query = `{
 
     events(
       where: {
-        eventId: {
-          _eq: 41
-        }
+        eventId: { _eq: 41 }
       }
     ) {
       level
+    }
+
+    audits(
+      where: {
+        closureType: {
+          _in: [succeeded, failed, expired]
+        }
+      }
+    ) {
+      closureType
     }
   }
 
   totalXP: transaction_aggregate(
     where: {
-      type: {
-        _eq: "xp"
-      }
+      type: { _eq: "xp" }
       event: {
         object: {
-          name: {
-            _eq: "Module"
-          }
+          name: { _eq: "Module" }
         }
       }
     }
@@ -35,5 +39,18 @@ export const query = `{
         amount
       }
     }
+  }
+
+  transaction(
+    where: {
+      type: { _eq: "xp" }
+      event: {
+        object: {
+          name: { _eq: "Module" }
+        }
+      }
+    }
+  ) {
+    amount
   }
 }`;
