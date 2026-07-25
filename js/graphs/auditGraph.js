@@ -1,51 +1,55 @@
-
 export function renderAuditGraph(audits) {
   const container = document.getElementById('auditGraph');
+
   if (!audits || audits.length === 0) {
     container.textContent = 'No audit data yet.';
     return;
   }
 
-  // count audits per closureType
-  const counts = {};
-  for (const a of audits) {
-    counts[a.closureType] = (counts[a.closureType] || 0) + 1;
+  // Count audits
+  const counts = {
+    succeeded: 0,
+    failed: 0,
+    expired: 0,
+  };
+
+  for (const audit of audits) {
+    if (counts[audit.closureType] !== undefined) {
+      counts[audit.closureType]++;
+    }
   }
 
-  const colors = {
-    succeeded: '#5eead4',
-    failed: '#f87171',
-    expired: '#8b93a1',
-  };
-  const labels = Object.keys(counts);
-  const max = Math.max(...Object.values(counts));
+    const max = Math.max(counts.succeeded, counts.failed, counts.expired);
 
-  const w = 300,
-    h = 180,
-    barW = w / labels.length;
+    const w = 300;
+    const h = 180;
+    const barW = 100;
 
-  const bars = labels
-    .map((label, i) => {
-      const value = counts[label];
-      const barH = (value / max) * (h - 30);
-      const x = i * barW + barW * 0.25;
-      const y = h - barH;
+  // Heights of the lines
+  const succeededH = (counts.succeeded / max) * (h - 30);
+  const failedH = (counts.failed / max) * (h - 30);
+  const expiredH = (counts.expired / max) * (h - 30);
 
-      return `
-        <rect x="${x}" y="${y}" width="${barW * 0.5}" height="${barH}" fill="${
-        colors[label]
-      }" />
-        <text x="${x + barW * 0.25}" y="${
-        y - 6
-      }" text-anchor="middle" font-size="12" fill="#e8eaed">${value}</text>
-        <text x="${x + barW * 0.25}" y="${
-        h + 15
-      }" text-anchor="middle" font-size="11" fill="#8b93a1">${label}</text>
-      `;
-    })
-    .join('');
+  // Y positions of the lines
+  const succeededY = h - succeededH;
+  const failedY = h - failedH;
+  const expiredY = h - expiredH;
 
-  container.innerHTML = `<svg viewBox="0 0 ${w} ${
-    h + 20
-  }" width="100%" height="100%">${bars}</svg>`;
+  container.innerHTML = `
+    <svg viewBox="0 0 ${w} ${h + 20}" width="100%" height="100%">
+
+      <rect x="25" y="${succeededY}" width="50" height="${succeededH}" fill="#5eead4"/>
+      <text x="50" y="${succeededY - 6}" text-anchor="middle" fill="#e8eaed">${counts.succeeded}</text>
+      <text x="50" y="${h + 15}" text-anchor="middle" fill="#8b93a1">Succeeded</text>
+
+      <rect x="125" y="${failedY}" width="50" height="${failedH}" fill="#f87171"/>
+      <text x="150" y="${failedY - 6}" text-anchor="middle" fill="#e8eaed">${counts.failed}</text>
+      <text x="150" y="${h + 15}" text-anchor="middle" fill="#8b93a1">Failed</text>
+
+      <rect x="225" y="${expiredY}" width="50" height="${expiredH}" fill="#8b93a1"/>
+      <text x="250" y="${expiredY - 6}" text-anchor="middle" fill="#e8eaed">${counts.expired}</text>
+      <text x="250" y="${h + 15}" text-anchor="middle" fill="#8b93a1">Expired</text>
+
+    </svg>
+  `;
 }
