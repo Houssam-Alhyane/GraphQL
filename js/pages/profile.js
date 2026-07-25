@@ -1,7 +1,7 @@
 import { getUser } from '../services/graphql.js';
 import { getToken, removeToken } from '../utils/storage.js';
 import { renderAuditGraph } from '../graphs/auditGraph.js';
-import { renderResultGraph } from '../graphs/xpGraph.js';
+import { renderResultGraph } from '../graphs/ResultGraph.js';
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
   removeToken();
