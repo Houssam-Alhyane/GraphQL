@@ -2,6 +2,8 @@
 
 A personal school profile page built with vanilla JavaScript, consuming the Zone01 GraphQL API. Displays user identification, XP, audit ratio, level, and two SVG statistics graphs (Pass/Fail results and Audit outcomes).
 
+**Live demo:** https://graphql-houssam.netlify.app/
+
 ## Features
 
 - **Login page** — authenticate with either `username:password` or `email:password` via Basic Auth against the platform's sign-in endpoint. Displays a clear error message on invalid credentials.
