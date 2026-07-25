@@ -1,74 +1,88 @@
 # GraphQL Profile
 
-A personal school profile page built with vanilla JavaScript, that authenticates against the platform's GraphQL API and visualizes XP and audit data using hand-built SVG graphs.
-
-**Live demo:** https://graphql-houssam.netlify.app/
+A personal school profile page built with vanilla JavaScript, consuming the Zone01 GraphQL API. Displays user identification, XP, audit ratio, level, and two SVG statistics graphs (Pass/Fail results and Audit outcomes).
 
 ## Features
 
-- **Login** — sign in with either `username:password` or `email:password`, authenticated via the platform's `/api/auth/signin` endpoint (Basic auth, JWT returned)
-- **Session handling** — JWT stored client-side, attached as a Bearer token on every GraphQL request, cleared on logout
-- **Error handling** — invalid credentials show a visible error message on the login form
-- **Profile data** — login, user ID, total XP, audit ratio, and current level, pulled directly from GraphQL
-- **Statistics graphs** (SVG, no charting library):
-  - XP progress over time — line graph built from cumulative transaction totals
-  - Audit results — bar chart of succeeded / failed / expired audits
-- **GraphQL query techniques** — normal queries, nested queries (e.g. `user { audits { closureType } }`), and argument-filtered queries (`where`, aggregates)
+- **Login page** — authenticate with either `username:password` or `email:password` via Basic Auth against the platform's sign-in endpoint. Displays a clear error message on invalid credentials.
+- **JWT session handling** — the token returned by the sign-in endpoint is stored client-side and sent as a Bearer token on every GraphQL request.
+- **Profile page** with:
+  - User identification (avatar, login, ID)
+  - Total XP
+  - Audit ratio
+  - Level
+- **Statistics section** — two graphs rendered with raw SVG:
+  - Pass / Fail ratio (donut chart)
+  - Audit outcomes — succeeded / failed / expired (bar chart)
+- **Logout** — clears the stored token and returns to the login page.
+- **Route guarding** — logged-out users are redirected away from the profile page, and logged-in users are redirected away from the login page.
 
-## Tech Stack
+## GraphQL usage
 
-- Vanilla JavaScript (ES modules)
-- Hand-written SVG for all graphs — no charting library
-- Hosted on Netlify
+The project queries the platform's GraphQL endpoint (`/api/graphql-engine/v1/graphql`) using all three required query styles:
 
-## Project Structure
+- **Normal query** — `user { id login avatarUrl auditRatio }`
+- **Nested query** — `user { events { level } }`, `user { audits { closureType } }`
+- **Query with arguments** — `transaction_aggregate(where: { type: { _eq: "xp" }, ... })`, `result(where: { eventId: { _eq: 41 } })`
+
+See [`js/services/query.js`](./js/services/query.js) for the full query.
+
+## Project structure
 
 ```
-├── index.html          # Login page
-├── profile.html         # Profile / dashboard page
+.
+├── assest/
+│   └── icon.png
 ├── css/
 │   ├── login.css
 │   └── profile.css
+├── index.html            # Login page
+├── profile.html           # Profile page
 ├── js/
 │   ├── config/
-│   │   └── config.js    # API endpoint constants
-│   ├── services/
-│   │   ├── auth.js       # Login request + JWT handling
-│   │   ├── graphql.js     # getUser() — fetches profile data
-│   │   └── query.js       # GraphQL query string
+│   │   └── config.js      # Login & GraphQL endpoint URLs
 │   ├── graphs/
-│   │   └── auditGraph.js  # SVG XP line graph + audit bar graph
-│   ├── main.js           # Login page controller
-│   └── profile.js        # Profile page controller
-└── assest/
-    └── icon.png
+│   │   ├── auditGraph.js  # SVG bar chart (audits)
+│   │   └── ResultGraph.js # SVG donut chart (pass/fail)
+│   ├── main.js             # Entry point / route guarding
+│   ├── pages/
+│   │   ├── login.js
+│   │   └── profile.js
+│   ├── services/
+│   │   ├── auth.js         # Login request + token handling
+│   │   ├── graphql.js      # GraphQL fetch + data shaping
+│   │   └── query.js        # GraphQL query string
+│   └── utils/
+│       └── storage.js      # Token get/save/remove (localStorage)
+└── README.md
 ```
 
-## How It Works
+## Getting started
 
-1. **Login** — credentials are Base64-encoded and sent as a `Basic` Authorization header to the signin endpoint. On success, the returned JWT is saved; on failure, an error message is displayed on the form.
-2. **Fetching data** — the JWT is sent as a `Bearer` token to the GraphQL endpoint. A single query fetches the user's profile info, audit history, level, and XP transactions.
-3. **Rendering** — profile fields are written directly into the DOM; XP and audit data are passed to two SVG-generating functions that build `<polyline>` and `<rect>` elements dynamically based on the returned data.
-4. **Logout** — clears the stored token and redirects back to the login page.
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   cd <repo-folder>
+   ```
+2. Update the endpoint URLs in [`js/config/config.js`](./js/config/config.js) if you're pointing at a different Zone01/01-edu domain.
+3. Serve the folder with any static file server (it uses ES modules, so it can't be opened directly via `file://`):
+   ```bash
+   npx serve .
+   # or
+   python3 -m http.server 8080
+   ```
+4. Open the served URL in your browser and log in with your platform credentials.
 
-## Running Locally
+## Tech stack
 
-Since this project uses ES modules, it needs to be served over HTTP (not opened as a local file):
+- Vanilla JavaScript (ES modules)
+- Native `fetch` for REST (auth) and GraphQL requests
+- Hand-written SVG for data visualization — no charting library
+- Plain CSS
 
-```bash
-# from the project root
-python3 -m http.server 8080
-# or
-npx serve .
-```
+## Hosting
 
-Then open `http://localhost:8080` in your browser.
-
-## GraphQL Endpoint
-
-- **Signin:** `https://learn.zone01oujda.ma/api/auth/signin`
-- **GraphQL:** `https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql`
+This project is a static site and can be deployed on any static host, e.g. GitHub Pages, Netlify, or Vercel.
 
 ## Author
-
 halhyane

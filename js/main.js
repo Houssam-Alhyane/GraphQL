@@ -8,7 +8,7 @@ if (page.endsWith('profile.html') && !token) {
 }
 
 if (
-  (page.endsWith('index.html') || page === '/' || page.endsWith('/GraphQL/')) &&
+  (page.endsWith('index.html') || page === '/') &&
   token
 ) {
   window.location.replace('/profile.html');
