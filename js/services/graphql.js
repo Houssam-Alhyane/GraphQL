@@ -14,6 +14,7 @@ export async function getUser() {
     },
     body: JSON.stringify({ query }),
   });
+
   if (response.status === 401 || response.status === 403) {
     removeToken();
     window.location.href = '/index.html';
@@ -27,10 +28,16 @@ export async function getUser() {
     return null;
   }
 
+  const grades = result.data.results;
+
+  const passed = grades.filter((r) => r.grade >= 1).length;
+  const failed = grades.filter((r) => r.grade < 1).length;
+
   return {
     ...result.data.user[0],
+    passed,
+    failed,
     totalXP: result.data.totalXP.aggregate.sum.amount,
-    transactions: result.data.transaction,
     audits: result.data.user[0].audits,
   };
 }

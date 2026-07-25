@@ -53,4 +53,12 @@ export const query = `{
   ) {
     amount
   }
+
+  results: result(
+    where: {
+      eventId: { _eq: 41 }
+    }
+  ) {
+    grade
+  }
 }`;

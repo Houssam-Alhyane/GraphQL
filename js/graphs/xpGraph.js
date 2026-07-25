@@ -1,39 +1,75 @@
-export function renderXpGraph(transactions) {
-  const container = document.getElementById('xpGraph');
+export function renderResultGraph(passed, failed) {
+  const container = document.getElementById('resultGraph');
 
-  // nothing to draw
-  if (!transactions || transactions.length === 0) {
-    container.textContent = 'No XP data yet.';
+  const total = passed + failed;
+
+  if (total === 0) {
+    container.textContent = 'No results yet.';
     return;
   }
 
-  // size of the drawing area
-  const width = 600;
-  const height = 200;
+  const radius = 70;
+  const circumference = 2 * Math.PI * radius;
 
-  // turn each transaction into a running total
-  // e.g. amounts [100, 50, 200] become totals [100, 150, 350]
-  let total = 0;
-  const totals = [];
-  for (const t of transactions) {
-    total += t.amount;
-    totals.push(total);
-  }
+  const passedLength = (passed / total) * circumference;
+  const failedLength = circumference - passedLength;
 
-  const maxXp = totals[totals.length - 1]; // last total = biggest value
-
-  // convert each total into an (x, y) coordinate on the SVG
-  let points = '';
-  for (let i = 0; i < totals.length; i++) {
-    const x = (i / (totals.length - 1)) * width; // spread evenly left to right
-    const y = height - (totals[i] / maxXp) * height; // higher xp = higher up (smaller y)
-    points += x + ',' + y + ' ';
-  }
-
-  // draw a single line connecting all the points
   container.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" width="100%" height="100%">
-      <polyline points="${points}" fill="none" stroke="#5eead4" stroke-width="2" />
+    <svg viewBox="0 0 220 220" width="100%" height="100%">
+      
+      <!-- Background -->
+      <circle
+        cx="110"
+        cy="110"
+        r="${radius}"
+        fill="none"
+        stroke="#2b303a"
+        stroke-width="18"
+      />
+
+      <!-- Passed -->
+      <circle
+        cx="110"
+        cy="110"
+        r="${radius}"
+        fill="none"
+        stroke="#5eead4"
+        stroke-width="18"
+        stroke-dasharray="${passedLength} ${circumference}"
+        stroke-linecap="round"
+        transform="rotate(-90 110 110)"
+      />
+
+      <!-- Failed -->
+      <circle
+        cx="110"
+        cy="110"
+        r="${radius}"
+        fill="none"
+        stroke="#ef4444"
+        stroke-width="18"
+        stroke-dasharray="${failedLength} ${circumference}"
+        stroke-dashoffset="-${passedLength}"
+        stroke-linecap="round"
+        transform="rotate(-90 110 110)"
+      />
+      <!-- Legend -->
+      <text
+        x="20"
+        y="205"
+        fill="#5eead4"
+        font-size="13">
+        ● Passed (${passed})
+      </text>
+
+      <text
+        x="120"
+        y="205"
+        fill="#ef4444"
+        font-size="13">
+        ● Failed (${failed})
+      </text>
+
     </svg>
   `;
 }

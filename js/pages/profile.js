@@ -1,7 +1,7 @@
 import { getUser } from '../services/graphql.js';
 import { getToken, removeToken } from '../utils/storage.js';
 import { renderAuditGraph } from '../graphs/auditGraph.js';
-import { renderXpGraph } from '../graphs/xpGraph.js';
+import { renderResultGraph } from '../graphs/xpGraph.js';
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
   removeToken();
@@ -12,7 +12,6 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 const token = getToken();
 if (!token) {
   window.location.replace('/index.html');
-  
 } else {
   const user = await getUser();
   if (user) {
@@ -23,8 +22,8 @@ if (!token) {
       user.auditRatio.toFixed(2);
     document.getElementById('userLevel').textContent = user.events[0].level;
     document.getElementById('xpTotal').textContent =
-      user.totalXP.toLocaleString();
+      user.totalXP.toLocaleString().split(',')[0] + ' KB';
   }
-  renderXpGraph(user.transactions);
+  renderResultGraph(user.passed, user.failed);
   renderAuditGraph(user.audits);
 }
