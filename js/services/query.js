@@ -40,20 +40,6 @@ export const query = `{
       }
     }
   }
-
-  transaction(
-    where: {
-      type: { _eq: "xp" }
-      event: {
-        object: {
-          name: { _eq: "Module" }
-        }
-      }
-    }
-  ) {
-    amount
-  }
-
   results: result(
     where: {
       eventId: { _eq: 41 }
