@@ -26,9 +26,10 @@ export async function getUser() {
 
     if (result.errors) {
       console.error(result.errors);
+      removeToken();
+      window.location.href = '/index.html';
       return null;
     }
-
     const grades = result.data.results;
 
     const passed = grades.filter((r) => r.grade >= 1).length;
