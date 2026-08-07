@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---------- Color ---------- */
+  --bg: #0b0f19;
+  --surface: #121826;
+  --card: #1a2233;
+  --card-hover: #202a40;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --primary: #5eead4;
+  --primary-soft: rgba(94, 234, 212, 0.12);
+  --secondary: #60a5fa;
+  --secondary-soft: rgba(96, 165, 250, 0.12);
+  --accent: #a78bfa;
+  --accent-soft: rgba(167, 139, 250, 0.12);
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --muted-dim: #5b6577;
+
+  --grad-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+  --grad-accent: linear-gradient(135deg, var(--accent), var(--secondary));
+
+  /* ---------- Type ---------- */
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ---------- Shape / elevation ---------- */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.35),
+    0 24px 56px rgba(0, 0, 0, 0.45);
+  --shadow-glow-primary: 0 0 0 1px rgba(94, 234, 212, 0.25),
+    0 0 24px rgba(94, 234, 212, 0.12);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.15s;
+  --dur-base: 0.25s;
+  --dur-slow: 0.6s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: var(--font-body);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+/* Ambient background glow, shared by both pages */
+.bg-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-glow--one {
+  width: 520px;
+  height: 520px;
+  top: -160px;
+  left: -120px;
+  background: radial-gradient(circle, rgba(94, 234, 212, 0.16), transparent 70%);
+}
+
+.bg-glow--two {
+  width: 560px;
+  height: 560px;
+  bottom: -200px;
+  right: -140px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.14), transparent 70%);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

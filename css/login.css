@@ -1,0 +1,173 @@
+@import url('./variables.css');
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------- Form shell ---------- */
+
+#loginForm {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 380px;
+  background: linear-gradient(180deg, var(--card), var(--surface));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 34px 34px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  animation: fadeInUp 0.5s var(--ease-out) both;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+.brand-mark__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+  box-shadow: 0 0 10px rgba(94, 234, 212, 0.6);
+}
+
+/* ---------- Alert ---------- */
+
+.error {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+  display: none;
+  animation: fadeIn var(--dur-base) var(--ease-out);
+}
+
+.error:not(:empty) {
+  display: block;
+}
+
+/* ---------- Copy ---------- */
+
+#loginForm p2 {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 21px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+#loginForm p2:last-of-type {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+  background: var(--primary-soft);
+  border-left: 2px solid var(--primary);
+  padding: 11px 13px;
+  border-radius: 6px;
+  margin: 18px 0 22px;
+}
+
+#loginForm br {
+  display: none;
+}
+
+/* ---------- Inputs ---------- */
+
+#loginForm input {
+  width: 100%;
+  padding: 13px 14px;
+  margin-top: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+#loginForm input::placeholder {
+  color: var(--muted-dim);
+}
+
+#loginForm input:hover {
+  border-color: var(--border-strong);
+}
+
+#loginForm input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+#loginForm input:first-of-type {
+  margin-top: 0;
+}
+
+/* ---------- Button ---------- */
+
+#loginForm button {
+  margin-top: 22px;
+  padding: 13px 14px;
+  background: var(--grad-primary);
+  color: #06251f;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
+}
+
+#loginForm button:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 8px 24px rgba(94, 234, 212, 0.25);
+  transform: translateY(-1px);
+}
+
+#loginForm button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+#loginForm button:focus-visible,
+#loginForm input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 420px) {
+  #loginForm {
+    padding: 32px 24px 28px;
+  }
+}

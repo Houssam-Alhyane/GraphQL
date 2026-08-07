@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/profile.css" />
+    <link rel="icon" href="./assest/icon.png" />
+    <title>Profile</title>
+  </head>
+
+  <body>
+    <div class="bg-glow bg-glow--one"></div>
+    <div class="bg-glow bg-glow--two"></div>
+
+    <header class="topbar">
+      <span class="brand">
+        <span class="brand__dot"></span>
+        Zone01
+      </span>
+      <button id="logoutBtn" class="logout-btn">
+        <span>Log out</span>
+      </button>
+    </header>
+
+    <main class="profile-wrap">
+      <section class="card user-card">
+        <div class="avatar-ring">
+          <img id="avatar" class="avatar" alt="Avatar" />
+        </div>
+
+        <div class="user-card__info">
+          <span class="eyebrow">Developer profile</span>
+          <h1 id="userLogin">—</h1>
+          <p class="muted" id="userId">ID: —</p>
+        </div>
+      </section>
+
+      <section class="stats-row">
+        <div class="card stat">
+          <div class="stat__icon stat__icon--xp">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="stat-label">Total XP</span>
+          <span class="stat-value" id="xpTotal">—</span>
+        </div>
+
+        <div class="card stat">
+          <div class="stat__icon stat__icon--audit">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3 4 6v6c0 4.4 3.2 7.9 8 9 4.8-1.1 8-4.6 8-9V6l-8-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="stat-label">Audit Ratio</span>
+          <span class="stat-value" id="auditRatio">—</span>
+        </div>
+
+        <div class="card stat">
+          <div class="stat__icon stat__icon--level">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="stat-label">Level</span>
+          <span class="stat-value" id="userLevel">—</span>
+        </div>
+      </section>
+
+      <section class="graphs-row graphs-row--full">
+        <div class="card graph-card">
+          <div class="graph-card__head">
+            <h2>XP Progression</h2>
+            <span class="muted graph-card__sub">Cumulative XP earned over time</span>
+          </div>
+          <div id="xpGraph" class="graph-container graph-container--wide"></div>
+        </div>
+      </section>
+
+      <section class="graphs-row">
+        <div class="card graph-card">
+          <div class="graph-card__head">
+            <h2>Passed / Failed</h2>
+            <span class="muted graph-card__sub">Project results overview</span>
+          </div>
+          <div id="resultGraph" class="graph-container"></div>
+        </div>
+
+        <div class="card graph-card">
+          <div class="graph-card__head">
+            <h2>Audits</h2>
+            <span class="muted graph-card__sub">Closure type distribution</span>
+          </div>
+          <div id="auditGraph" class="graph-container"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
